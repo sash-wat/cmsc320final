@@ -8,5 +8,4 @@ This final tutorial aims to answer two questions:
 
     1. Given statistics from previous MVPs, can we accurately predict the MVP of any given season?
 
-    
     2. Given a set of statistics, can we predict if a hypothetical player would have won MVP in any given season?
