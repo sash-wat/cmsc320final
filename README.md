@@ -5,7 +5,8 @@ These awards typically include recognition for being a league's Most Valuable Pl
 
 These players are typically from the best teams, and there is often controversy and discussion around whether or not a particular player was truly deserving of their award.
 
-This final tutorial aims to answer two questions:
+This final tutorial aims to answer three questions:
 
 1. Given statistics from previous award winnerss, can we accurately predict the same award winner of any given season?
 2. Given a set of statistics, can we predict if a hypothetical player would have won a particular in any given season?
+3. Are award winners typically statistical outliers based on individual statistics, or does the success of their team play a significant role in award worthiness?
