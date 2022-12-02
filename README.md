@@ -10,3 +10,10 @@ This final tutorial aims to answer three questions:
 1. Given statistics from previous award winnerss, can we accurately predict the same award winner of any given season?
 2. Given a set of statistics, can we predict if a hypothetical player would have won a particular in any given season?
 3. Are award winners typically statistical outliers based on individual statistics, or does the success of their team play a significant role in award worthiness?
+
+## Future Plan
+
+1. Contextualize MVP and DPOY seasons
+    1. Standardize variables by season, show how much of an outlier MVPs and DPOYs are in relevant statistics
+2. Understand what statistics are most likely to contribute to MVP
+    1. Does team W/L play a significant role or can sheer statistical greatness overcome poor team play?
