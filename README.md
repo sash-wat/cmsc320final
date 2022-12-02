@@ -15,5 +15,7 @@ This final tutorial aims to answer three questions:
 
 1. Contextualize MVP and DPOY seasons
     1. Standardize variables by season, show how much of an outlier MVPs and DPOYs are in relevant statistics
-2. Understand what statistics are most likely to contribute to MVP
+2. Understand what statistics are most likely to contribute to MVP/DPOY
     1. Does team W/L play a significant role or can sheer statistical greatness overcome poor team play?
+3. Build predictor/percentage likelihood for MVP and DPOY awards given a set of statistics
+    1. Python functions
