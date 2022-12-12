@@ -17240,6 +17240,79 @@ class="
 
 </div>
 
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">outliermvp</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">mvp_dict</span><span class="p">:</span>
+    <span class="c1">#ppg.append(mvp_dict[e][0])</span>
+    <span class="c1">#vorp.append(mvp_dict[e][1])</span>
+    <span class="c1">#per.append(mvp_dict[e][2])</span>
+    <span class="c1">#ws.append(mvp_dict[e][3])</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">):</span>
+        <span class="n">outliermvp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="c1">#plt.scatter(mvp_dict[e][0], mvp_dict[e][3])</span>
+        <span class="c1">#plt.text(mvp_dict[e][0]+0.01, mvp_dict[e][3]+0.01, e)</span>
+<span class="n">outliermvp</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>[&#39;2015-16 Stephen Curry&#39;, &#39;1987-88 Michael Jordan&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Based on the above observations, we can see that the 3 most &quot;average&quot; MVP years were:</p>
+<ul>
+<li>Karl Malone in 1996-97</li>
+<li>David Robinson in 1994-95</li>
+<li>Michael Jordan in 1991-92</li>
+</ul>
+<p>From the same observations, we can see that the 2 most outlier-y MVP years were:</p>
+<ul>
+<li>Stephen Curry in 2015-16</li>
+<li>Michael Jordan in 1987-88</li>
+</ul>
+<p>Notably, Stephen Curry won the 2015-16 NBA MVP award with a unanimous vote, the first and so far only time this has occurred in league history.</p>
+<p>Additionally, of the 5 above seasons, only 1 of these players won the NBA championship, that player being 1991-92 Michael Jordan.</p>
+
+</div>
+</div>
+</div>
 </div>
 </body>
 
