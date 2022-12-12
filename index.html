@@ -17201,14 +17201,8 @@ class="
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">averagemvp</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">mvp_dict</span><span class="p">:</span>
-    <span class="c1">#ppg.append(mvp_dict[e][0])</span>
-    <span class="c1">#vorp.append(mvp_dict[e][1])</span>
-    <span class="c1">#per.append(mvp_dict[e][2])</span>
-    <span class="c1">#ws.append(mvp_dict[e][3])</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="ow">and</span> <span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="ow">and</span> <span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">):</span>
         <span class="n">averagemvp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-        <span class="c1">#plt.scatter(mvp_dict[e][0], mvp_dict[e][3])</span>
-        <span class="c1">#plt.text(mvp_dict[e][0]+0.01, mvp_dict[e][3]+0.01, e)</span>
 <span class="n">averagemvp</span>
 </pre></div>
 
@@ -17250,14 +17244,8 @@ class="
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">outliermvp</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">mvp_dict</span><span class="p">:</span>
-    <span class="c1">#ppg.append(mvp_dict[e][0])</span>
-    <span class="c1">#vorp.append(mvp_dict[e][1])</span>
-    <span class="c1">#per.append(mvp_dict[e][2])</span>
-    <span class="c1">#ws.append(mvp_dict[e][3])</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mvp_dict</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">):</span>
         <span class="n">outliermvp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-        <span class="c1">#plt.scatter(mvp_dict[e][0], mvp_dict[e][3])</span>
-        <span class="c1">#plt.text(mvp_dict[e][0]+0.01, mvp_dict[e][3]+0.01, e)</span>
 <span class="n">outliermvp</span>
 </pre></div>
 
@@ -17309,6 +17297,32 @@ class="
 </ul>
 <p>Notably, Stephen Curry won the 2015-16 NBA MVP award with a unanimous vote, the first and so far only time this has occurred in league history.</p>
 <p>Additionally, of the 5 above seasons, only 1 of these players won the NBA championship, that player being 1991-92 Michael Jordan.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now, we can start to develop a system for predicting MVPs. Knowing where MVPs fall, we can begin to compile a list of players from each season that could have won the MVP award, based on the following methodology.</p>
+<p>Contending players must have:</p>
+<ul>
+<li>A ceiling standardized PPG value of at least 1</li>
+<li>A ceiling standardized VORP value of at least 2</li>
+<li>A ceiling standarized PER value of at least 2</li>
+<li>A ceiling standarized WS value of at least 2</li>
+</ul>
+<p>In the following order, we can assign decreasing weights to these metrics to predict MVP odds:</p>
+<ol>
+<li>Win shares (40%)</li>
+<li>Value Over Replacement Player (30%)</li>
+<li>Points Per Game(20%)</li>
+<li>Player Efficiency Rating (10%)</li>
+</ol>
 
 </div>
 </div>
