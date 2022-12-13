@@ -14599,24 +14599,10 @@ These awards typically include recognition for being a league's Most Valuable Pl
 <p>This final tutorial aims to answer three questions:</p>
 <ol>
 <li>Given statistics from previous award winners, can we accurately predict the same award winner of any given season?</li>
-<li>Given a set of statistics, can we predict if a hypothetical player would have won a particular in any given season?</li>
+<li>Given a set of statistics, can we predict if a hypothetical player would have won the MVP Award?</li>
 <li>Are award winners typically statistical outliers based on individual statistics, or does the success of their team play a significant role in award worthiness?</li>
 </ol>
 <p>Given constraints on data availability from my sources, I will be utilizing data up to the 2016-17 NBA season, and data from future seasons to present will be used as testing to validate or invalidate my guiding questions.</p>
-<h2 id="Future-Plan">Future Plan<a class="anchor-link" href="#Future-Plan">&#182;</a></h2><ol>
-<li>Contextualize MVP seasons<ol>
-<li>Standardize variables by season, show how much of an outlier MVPs are in relevant statistics</li>
-</ol>
-</li>
-<li>Understand what statistics are most likely to contribute to MVP<ol>
-<li>Does team W/L play a significant role or can sheer statistical greatness overcome poor team play?</li>
-</ol>
-</li>
-<li>Build predictor/percentage likelihood for MVP awards given a set of statistics<ol>
-<li>Python functions</li>
-</ol>
-</li>
-</ol>
 
 </div>
 </div>
@@ -16817,7 +16803,7 @@ class="
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>VORP gives us odds right in between PPG and WS, but still only correctly matches 37% of MVPs. Let's take a look at one more statistic, called the Player Efficiency Rating. More information on PER can be found here: https://en.wikipedia.org/wiki/Player_efficiency_rating</p>
+<p>VORP gives us odds right in between PPG and WS, but still only correctly matches 37% of MVPs. Let's take a look at one more statistic, called the Player Efficiency Rating. More information on PER can be found here:(https://en.wikipedia.org/wiki/Player_efficiency_rating)</p>
 
 </div>
 </div>
@@ -16882,18 +16868,13 @@ class="
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#plt.rcParams["figure.figsize"] = (8, 5.5)</span>
-<span class="k">def</span> <span class="nf">grapher</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">year</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">grapher</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">year</span><span class="p">):</span>
     <span class="n">mvp</span> <span class="o">=</span> <span class="n">mvpframe</span><span class="p">[</span><span class="n">mvpframe</span><span class="p">[</span><span class="s1">'Season'</span><span class="p">]</span> <span class="o">==</span> <span class="n">year</span><span class="p">][</span><span class="s1">'Player'</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
     <span class="n">year_stat</span> <span class="o">=</span> <span class="n">seasons_df</span><span class="p">[</span><span class="n">seasons_df</span><span class="p">[</span><span class="s1">'Year'</span><span class="p">]</span> <span class="o">==</span> <span class="n">year</span><span class="p">]</span>
     <span class="n">meanstat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">year_stat</span><span class="p">[</span><span class="n">stat</span><span class="p">])</span>
     <span class="n">stdstat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">year_stat</span><span class="p">[</span><span class="n">stat</span><span class="p">])</span>
     <span class="n">standardized</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span> <span class="o">-</span> <span class="n">meanstat</span><span class="p">)</span><span class="o">/</span><span class="n">stdstat</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">year_stat</span><span class="p">[</span><span class="n">stat</span><span class="p">]]</span>
     <span class="n">mvp_stat</span> <span class="o">=</span> <span class="n">year_stat</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">year_stat</span><span class="p">[</span><span class="s1">'Player'</span><span class="p">]</span> <span class="o">==</span> <span class="n">mvp</span><span class="p">]</span>
-    <span class="c1">#print(mvp + "'s standardized " + str(stat) + " in the " + str(year) + " season was: " + str(((mvp_stat[stat]-meanstat)/stdstat).max()))</span>
-    <span class="c1">#plt.hist(standardized, rwidth=0.5)</span>
-    <span class="c1">#plt.title('Standardized ' + str(stat) + ' for the ' + str(year) + " Season")</span>
-    <span class="c1">#plt.show()</span>
     <span class="k">return</span> <span class="p">((</span><span class="n">mvp_stat</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span><span class="o">-</span><span class="n">meanstat</span><span class="p">)</span><span class="o">/</span><span class="n">stdstat</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 </pre></div>
 
@@ -18854,7 +18835,56 @@ There is a 56.995147856109604% chance that a player with an MVP metric of 55.579
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Prose:">Prose:<a class="anchor-link" href="#Prose:">&#182;</a></h1>
+<h1 id="Final-Notes:">Final Notes:<a class="anchor-link" href="#Final-Notes:">&#182;</a></h1><h2 id="Motivation:">Motivation:<a class="anchor-link" href="#Motivation:">&#182;</a></h2><p>My motivation in selecting this project comes from two areas. First, I am a big fan of basketball, and have been watching/keeping up with the NBA for years. Each year, watching players compete at the highest level and attempting to guess who the MVP and other award winners will be is a source of great debate during the season and in the lead up to the annual NBA MVP awards ceremony. Having a method to predict, with a certain degree of likelihood, whether a given player could win the MVP award would be useful for a number of reasons:</p>
+<ol>
+<li>During the season, numerous sportsbooks will release odds for the MVP award, and having a chance to &quot;beat the system&quot; could allow bettors to place winning bets more often.</li>
+<li>In a more casual and informal sense, being able to predict the MVP would give me &quot;bragging rights&quot; within my group of friends who also follow the NBA.</li>
+</ol>
+<p>Additionally, finding trends between MVP players could allow teams/General Managers to identify players that are on trajectories for MVP-caliber seasons, which often correlate to team success in terms of regular-season wins or postseason wins.</p>
+<h2 id="Data-Collection-and-Parsing:">Data Collection and Parsing:<a class="anchor-link" href="#Data-Collection-and-Parsing:">&#182;</a></h2><p>The data I used in this project came from a variety of sources. The breakdown of data sourcing was as follows:</p>
+<ul>
+<li>Kaggle<ul>
+<li>datafiles/player_data.csv</li>
+<li>datafiles/Players.csv</li>
+<li>datafiles/Seasons_Stats.csv</li>
+<li>teams_wins dictionary</li>
+</ul>
+</li>
+<li>Basketball Reference<ul>
+<li>Used to create MVP frame</li>
+<li>datafiles/2021-22.csv</li>
+<li>datafiles/2021-22-adv.csv</li>
+</ul>
+</li>
+<li>Data.World<ul>
+<li>datafiles/Historical NBA Performance.xlsx</li>
+</ul>
+</li>
+</ul>
+<p>In the early stages of handling the data, there were a number of factors I had to consider before I was able to conduct my analysis. The 'Seasons_Stats.csv' file only contained information through the 2016-17 NBA season, which creates a gap of 4 full NBA seasons, plus one NBA season that was shortened due to the COVID-19 pandemic. Additionally, certain statistics were only tracked after a certain season. For example, PER can only be calculated for the 1973-74 NBA season onwards. Like PER, VORP is only available for the 1973-74 NBA season and all seasons following. WS are only able to be calculated starting in 1977-78. This further limits the size of data I can actually use. The final and perhaps most restrictive part of the data parsing is the fact that the teams_wins dictionary only contains data between the 1999-00 and 2016-17 seasons, so the second stage of calculating MVP likelihood is limited to training data of just 17 seasons. I was able to manually gather data for the 2021-22 season to use as testing to validate my approaches and bring some sort of conclusion to my project.</p>
+<p>While this small chunk of data isn't ideal, for the scope of this project and to provide an initial system to project MVP winners, this limited amount of data is plausible. Given more time, I could use the method I used to gather data for 2021-22 to build custom frames for each year since 1977-78, which is the first year that all 4 of my target stats are available.</p>
+<h2 id="Exploratory-Data-Analysis">Exploratory Data Analysis<a class="anchor-link" href="#Exploratory-Data-Analysis">&#182;</a></h2><p>In the first stage of my analysis, I wanted to understand and contextualize the seasons of each MVP. From my perspective, the best way to do this was to standarize the statistics I felt were important to determining MVP odds. In each MVP season, I was able to indentify that MVPs were above average, by at least 1 standard deviation in Points Per Game, Value Over Replacement Player, Player Efficiency Rating, and Win Shares. Using this knowledge, I focused on designing my system in a way that initially focused on these statistics.</p>
+<h2 id="Hypothesis-Testing">Hypothesis Testing<a class="anchor-link" href="#Hypothesis-Testing">&#182;</a></h2><p>I ranked the 4 statistics in order of importance, to generate a first version of a personalized MVP metric. Using this metric, I was only able to predict 61% of the winners correctly. After factoring in wins to attempt to reflect the role of team success in MVP odds, I was able to project 72% of winners. After going through this process, I decided that generating a Linear Regression Model to determine MVP odds was the best way of going about a conclusion to this investigation.</p>
+<p>In building my model, I chose to give MVPs a label of 1. MVP Candidates, determined by above criteria, that didn't win MVP, were given a label of 0.5, and all other players were given a label of 0. When the predict function is run, the output returns a value between 0 and 1. The output of this can be interpreted as a % chance of a player with a given MVP metric winning MVP, or, that if a player is between 0 and 0.5, they are not an MVP candidate, and then if they are between 0.5 and 1, they are an MVP candidate, and the closer a player is to 1, the stronger their season is, and the more likely they are to win the MVP award. Either interpretation is fair in my view, but the second approach is perhaps more nuanced as to what the Linear Regression Model returns, whereas the first interpretation is a simplification.</p>
+<h2 id="Communication-of-Insights-Gained">Communication of Insights Gained<a class="anchor-link" href="#Communication-of-Insights-Gained">&#182;</a></h2><p>Based on my investigation, I can answer the three questions I posed at the beginning of this tutorial:</p>
+<ol>
+<li><p>Given statistics from previous award winners, can we accurately predict the same award winner of any given season?</p>
+<ul>
+<li>The answer to this question is slightly complicated to answer. We are not necessarily able to <u>accurately</u> predict the winner of an MVP award in a given season. However, using the standardizing methodology, I can contextualize the 4 key stats in a player, and by gauging how far above the average they are, I can provide a prediction as to how strong their season is.</li>
+</ul>
+</li>
+<li><p>Given a set of statistics, can we predict if a hypothetical player would have won the MVP Award?</p>
+<ul>
+<li>The answer to this question is similar to the previous one. However, if we are just given a set of statistics, we cannot make an estimation as to MVP worthiness, as we would need the context of the rest of the players in the league for that given season. This contextualizing data is incredibly important, as MVPs are strong statistical outliers in the 4 areas we have identified above and throughout this investigation.</li>
+</ul>
+</li>
+<li><p>Are award winners typically statistical outliers based on individual statistics, or does the success of their team play a significant role in award worthiness?</p>
+<ul>
+<li>We can confirm that in all cases, MVPs are statistical outliers in the areas of PPG, VORP, PER, and WS. This fact is important to consider, as it provides a foundation on which to base my prediction system on. However, when we factor in team wins, the prediction system becomes stronger, and as a result, we can infer that team success is a factor in voting for MVPs. However, the extent to which team success matters is quite variable. Additionally, it is important to understand that voters for the NBA MVP award are subject to personal bias, as well as a phenomenom known as voter fatigue, which comes into play when a player wins an award multiple times consecutively. This manifests in the NBA MVP race, when a player is unlikely to win the MVP for a 3rd year in a row if they have won in both of the previous two seasons, as is season with Giannis Antetekoumpo in 2018-19, 2019-20, and 2020-21, where he didn't win in 2020-21.</li>
+</ul>
+</li>
+</ol>
+
 </div>
 </div>
 </div>
