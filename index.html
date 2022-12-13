@@ -18380,7 +18380,6 @@ class="
     <span class="n">tmp</span><span class="p">[</span><span class="s1">'MVP'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">tmp</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">'S_PPG'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s1">'S_VORP'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s1">'S_PER'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s1">'S_WS'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s1">'G'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">41</span><span class="p">:</span>
-            <span class="c1">#print(row['Player'] + " " + str((row['S_WS'] * 0.4) + (row['S_VORP'] * 0.3) + (row['S_PPG'] * 0.2) + (row['S_PER'] * 0.1) + (row['Wins'])))</span>
             <span class="n">tmp</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">'MVP'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'S_WS'</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'S_VORP'</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'S_PPG'</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'S_PER'</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'Wins'</span><span class="p">])</span>
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'Player'</span><span class="p">],</span> <span class="n">tmp</span><span class="p">[</span><span class="s1">'MVP'</span><span class="p">])))</span>
 </pre></div>
@@ -18499,7 +18498,7 @@ class="
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Now, let's take this a step further and see if we can use the sklearn Linear Regression library to create a model that will classify whether a hypothetical set of stats would win MVP in a given year:</p>
+<p>Now, let's take this a step further and see if we can use the sklearn Linear Regression library to create a model that will project the odds that a hypothetical player with a particular MVP metric would win the MVP award:</p>
 
 </div>
 </div>
@@ -18514,10 +18513,10 @@ class="
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">proj_mvp_new2</span><span class="p">(</span><span class="n">year</span><span class="p">):</span>
     <span class="n">tmp</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">(</span><span class="n">year</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">c_dict</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">(</span><span class="n">year</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">tmp</span><span class="p">[</span><span class="s1">'MVP'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">tmp</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">'S_PPG'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">row</span><span class="p">[</span><span class="s1">'S_VORP'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">row</span><span class="p">[</span><span class="s1">'S_PER'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">row</span><span class="p">[</span><span class="s1">'S_WS'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">row</span><span class="p">[</span><span class="s1">'G'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">41</span><span class="p">:</span>
-            <span class="c1">#print(row['Player'] + " " + str((row['S_WS'] * 0.4) + (row['S_VORP'] * 0.3) + (row['S_PPG'] * 0.2) + (row['S_PER'] * 0.1) + (row['Wins'])))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'S_PPG'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s1">'S_VORP'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s1">'S_PER'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s1">'S_WS'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="s1">'G'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">41</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'Player'</span><span class="p">]</span> <span class="ow">in</span> <span class="n">c_dict</span><span class="p">):</span>
             <span class="n">tmp</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">'MVP'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'S_WS'</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'S_VORP'</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'S_PPG'</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'S_PER'</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'Wins'</span><span class="p">])</span>
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="s1">'Player'</span><span class="p">],</span> <span class="n">tmp</span><span class="p">[</span><span class="s1">'MVP'</span><span class="p">])))</span>
 </pre></div>
@@ -18536,16 +18535,19 @@ class="
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 
 <span class="k">def</span> <span class="nf">predict_mvp</span><span class="p">(</span><span class="n">metric</span><span class="p">):</span>
   <span class="c1"># create the linear regression model</span>
   <span class="n">X</span> <span class="o">=</span> <span class="p">[]</span>
   <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
-  <span class="c1"># a = []</span>
-  <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
-  <span class="c1"># defining training data (1999-00 to 2016-17 seasons)</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">b</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+  <span class="c1"># feeding training data (1999-00 to 2016-17 seasons)</span>
   <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">mvpframe</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">index</span> <span class="o">&lt;=</span> <span class="mi">22</span><span class="p">:</span>
+        <span class="n">candidate_dict</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'Season'</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">mvp</span> <span class="o">=</span> <span class="n">mvpframe</span><span class="p">[</span><span class="n">mvpframe</span><span class="p">[</span><span class="s1">'Season'</span><span class="p">]</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s1">'Season'</span><span class="p">]][</span><span class="s1">'Player'</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
         <span class="n">l</span> <span class="o">=</span> <span class="n">proj_mvp_new2</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'Season'</span><span class="p">])</span>
         <span class="n">l</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -18553,23 +18555,27 @@ class="
           <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
           <span class="k">if</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">mvp</span><span class="p">:</span>
             <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'Season'</span><span class="p">]</span><span class="o">+</span> <span class="s1">' MVP Added with metric '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-            <span class="c1">#a.append(t[1])</span>
-          <span class="k">else</span><span class="p">:</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">continue</span>
+          <span class="k">elif</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">candidate_dict</span> <span class="ow">and</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">mvp</span><span class="p">:</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+            <span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">continue</span>
+          <span class="k">elif</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">candidate_dict</span><span class="p">:</span>
             <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-  <span class="c1">#print(X)</span>
-  <span class="c1">#print(y)</span>
+            <span class="k">continue</span>
+
+
   <span class="c1"># train the model</span>
   <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-  
-  <span class="c1"># input = (ws*0.4)+(vorp*0.3)+(ppg*0.2)+(per*0.1)+wins</span>
-
-  <span class="c1"># make a prediction</span>
-  <span class="c1">#print("MVP Metric: " + str(input))</span>
-  <span class="c1">#print(np.mean(a))</span>
   <span class="n">prediction</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="n">metric</span><span class="p">]])</span>
 
-  <span class="k">return</span> <span class="n">prediction</span>
+  <span class="c1">#print('Some statistics of training data:')</span>
+  <span class="c1">#print('MVPs had an average MVP metric of ' + str(np.mean(a)) + ", with standard deviation of " + str(np.std(a)))</span>
+  <span class="c1">#print('MVP candidates had an average MVP metric of ' + str(np.mean(b)) + ", with standard deviation of " + str(np.std(b)))</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">'There is a '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">prediction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"%"</span>  <span class="o">+</span> <span class="s2">" chance that a player with an MVP metric of "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span> <span class="o">+</span> <span class="s2">" would win the NBA MVP award"</span><span class="p">)</span>
+
+  <span class="k">return</span>
 </pre></div>
 
      </div>
@@ -18585,190 +18591,7 @@ class="
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">temp</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">(</span><span class="s1">'2007-08'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">temp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">temp</span><span class="p">[</span><span class="s1">'Player'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'Kobe Bryant'</span><span class="p">]</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Year</th>
-      <th>Player</th>
-      <th>Pos</th>
-      <th>Age</th>
-      <th>Tm</th>
-      <th>G</th>
-      <th>GS</th>
-      <th>MP</th>
-      <th>PER</th>
-      <th>TS%</th>
-      <th>3PAr</th>
-      <th>FTr</th>
-      <th>ORB%</th>
-      <th>DRB%</th>
-      <th>TRB%</th>
-      <th>AST%</th>
-      <th>STL%</th>
-      <th>BLK%</th>
-      <th>TOV%</th>
-      <th>USG%</th>
-      <th>blanl</th>
-      <th>OWS</th>
-      <th>DWS</th>
-      <th>WS</th>
-      <th>WS/48</th>
-      <th>blank2</th>
-      <th>OBPM</th>
-      <th>DBPM</th>
-      <th>BPM</th>
-      <th>VORP</th>
-      <th>FG</th>
-      <th>FGA</th>
-      <th>FG%</th>
-      <th>3P</th>
-      <th>3PA</th>
-      <th>3P%</th>
-      <th>2P</th>
-      <th>2PA</th>
-      <th>2P%</th>
-      <th>eFG%</th>
-      <th>FT</th>
-      <th>FTA</th>
-      <th>FT%</th>
-      <th>ORB</th>
-      <th>DRB</th>
-      <th>TRB</th>
-      <th>AST</th>
-      <th>STL</th>
-      <th>BLK</th>
-      <th>TOV</th>
-      <th>PF</th>
-      <th>PTS</th>
-      <th>All Star Season</th>
-      <th>PPG</th>
-      <th>S_PPG</th>
-      <th>S_VORP</th>
-      <th>S_PER</th>
-      <th>S_WS</th>
-      <th>Wins</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>18825</th>
-      <td>2007-08</td>
-      <td>Kobe Bryant</td>
-      <td>SG</td>
-      <td>29.0</td>
-      <td>LAL</td>
-      <td>82.0</td>
-      <td>82.0</td>
-      <td>3192.0</td>
-      <td>24.2</td>
-      <td>0.576</td>
-      <td>0.246</td>
-      <td>0.439</td>
-      <td>3.4</td>
-      <td>14.1</td>
-      <td>9.0</td>
-      <td>23.9</td>
-      <td>2.4</td>
-      <td>0.9</td>
-      <td>11.3</td>
-      <td>31.4</td>
-      <td>NaN</td>
-      <td>9.5</td>
-      <td>4.3</td>
-      <td>13.8</td>
-      <td>0.208</td>
-      <td>NaN</td>
-      <td>5.1</td>
-      <td>0.3</td>
-      <td>5.4</td>
-      <td>6.0</td>
-      <td>775.0</td>
-      <td>1690.0</td>
-      <td>0.459</td>
-      <td>150.0</td>
-      <td>415.0</td>
-      <td>0.361</td>
-      <td>625.0</td>
-      <td>1275.0</td>
-      <td>0.49</td>
-      <td>0.503</td>
-      <td>623.0</td>
-      <td>742.0</td>
-      <td>0.84</td>
-      <td>94.0</td>
-      <td>423.0</td>
-      <td>517.0</td>
-      <td>441.0</td>
-      <td>151.0</td>
-      <td>40.0</td>
-      <td>257.0</td>
-      <td>227.0</td>
-      <td>2323.0</td>
-      <td>0</td>
-      <td>28.329268</td>
-      <td>3.550484</td>
-      <td>4.137364</td>
-      <td>1.81134</td>
-      <td>3.813261</td>
-      <td>57.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">predict_mvp</span><span class="p">(</span><span class="mi">75</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">predict_mvp</span><span class="p">(</span><span class="mi">58</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -18788,44 +18611,30 @@ class="
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>2016-17 MVP Added with metric 52.3183196286035
-2015-16 MVP Added with metric 78.62861637121529
-2014-15 MVP Added with metric 71.86412280965132
-2013-14 MVP Added with metric 64.49620280057619
-2012-13 MVP Added with metric 71.69398230579603
-2011-12 MVP Added with metric 51.38678146693038
-2010-11 MVP Added with metric 65.75499437858602
-2009-10 MVP Added with metric 66.82445352646347
-2008-09 MVP Added with metric 71.90767856599598
-2007-08 MVP Added with metric 60.65774450365994
-2006-07 MVP Added with metric 70.89675353927119
-2005-06 MVP Added with metric 56.56652638065717
-2004-05 MVP Added with metric 64.0115377476184
-2003-04 MVP Added with metric 63.27016434831128
-2002-03 MVP Added with metric 63.91739001633843
-2001-02 MVP Added with metric 62.52373992891633
-2000-01 MVP Added with metric 59.177177504002955
-1999-00 MVP Added with metric 72.12189206221443
+<pre>Some statistics of training data:
+MVPs had an average MVP metric of 51.533616208270544, with standard deviation of 28.2914243072278
+MVP candidates had an average MVP metric of 53.33314373784618, with standard deviation of 9.402067854126907
+There is a 59.47491065060967% chance that a player with an MVP metric of 58 would win the NBA MVP award
 </pre>
 </div>
 </div>
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>array([0])</pre>
-</div>
 
 </div>
 
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>testing on 2021-22 league data:</p>
 
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -18834,7 +18643,47 @@ class="
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">proj_mvp_new</span><span class="p">(</span><span class="s1">'2007-08'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stat2122</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'datafiles/2021-22.csv'</span><span class="p">)</span>
+<span class="n">adv2122</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'datafiles/2021-22-adv.csv'</span><span class="p">)</span>
+<span class="n">stat2122</span><span class="p">[</span><span class="s1">'PPG'</span><span class="p">]</span> <span class="o">=</span> <span class="n">stat2122</span><span class="p">[</span><span class="s1">'PTS'</span><span class="p">]</span><span class="o">/</span><span class="n">stat2122</span><span class="p">[</span><span class="s1">'G'</span><span class="p">]</span>
+<span class="n">stat2122</span><span class="p">[</span><span class="s1">'MVP'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stat2122</span><span class="p">))</span>
+<span class="n">stat2122</span>
+
+<span class="n">ppgmean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">stat2122</span><span class="p">[</span><span class="s1">'PPG'</span><span class="p">])</span>
+<span class="n">ppgstd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">stat2122</span><span class="p">[</span><span class="s1">'PPG'</span><span class="p">])</span>
+
+<span class="n">vorpmean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">adv2122</span><span class="p">[</span><span class="s1">'VORP'</span><span class="p">])</span>
+<span class="n">vorpstd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">adv2122</span><span class="p">[</span><span class="s1">'VORP'</span><span class="p">])</span>
+
+<span class="n">permean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">adv2122</span><span class="p">[</span><span class="s1">'PER'</span><span class="p">])</span>
+<span class="n">perstd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">adv2122</span><span class="p">[</span><span class="s1">'PER'</span><span class="p">])</span>
+
+<span class="n">wsmean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">adv2122</span><span class="p">[</span><span class="s1">'WS'</span><span class="p">])</span>
+<span class="n">wsstd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">adv2122</span><span class="p">[</span><span class="s1">'WS'</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">stat2122</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">ppg</span> <span class="o">=</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'PPG'</span><span class="p">]</span> <span class="o">-</span> <span class="n">ppgmean</span><span class="p">)</span><span class="o">/</span><span class="n">ppgstd</span>
+    <span class="n">vorp</span> <span class="o">=</span> <span class="p">(</span><span class="n">adv2122</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">'VORP'</span><span class="p">]</span> <span class="o">-</span> <span class="n">vorpmean</span><span class="p">)</span><span class="o">/</span><span class="n">vorpstd</span>
+    <span class="n">per</span> <span class="o">=</span> <span class="p">(</span><span class="n">adv2122</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">'PER'</span><span class="p">]</span> <span class="o">-</span> <span class="n">permean</span><span class="p">)</span><span class="o">/</span><span class="n">perstd</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="p">(</span><span class="n">adv2122</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">'WS'</span><span class="p">]</span> <span class="o">-</span> <span class="n">wsmean</span><span class="p">)</span><span class="o">/</span><span class="n">wsstd</span>
+    <span class="n">stat2122</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">'MVP'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.4</span><span class="o">*</span><span class="n">ws</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mf">0.3</span><span class="o">*</span><span class="n">vorp</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mf">0.2</span><span class="o">*</span><span class="n">ppg</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mf">0.1</span><span class="o">*</span><span class="n">per</span><span class="p">)</span>
+
+<span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argpartition</span><span class="p">(</span><span class="n">stat2122</span><span class="p">[</span><span class="s1">'MVP'</span><span class="p">],</span> <span class="o">-</span><span class="mi">5</span><span class="p">)[</span><span class="o">-</span><span class="mi">5</span><span class="p">:]</span>
+<span class="n">mvp2122</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">win2122</span> <span class="o">=</span> <span class="p">[</span><span class="mi">52</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">51</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ind</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">stat2122</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">'Player'</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"-"</span> <span class="o">+</span> <span class="n">stat2122</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">'Tm'</span><span class="p">])</span>
+    <span class="n">mvp2122</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stat2122</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">'MVP'</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mvp2122</span><span class="p">)</span>
+<span class="n">mvp2122</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">mvp2122</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">win2122</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mvp2122</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">mvp2122</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">win2122</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">mvp2122</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">mvp2122</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">win2122</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">mvp2122</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">mvp2122</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">win2122</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">mvp2122</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">mvp2122</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">win2122</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mvp2122</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mvp2122</span><span class="p">:</span>
+    <span class="n">predict_mvp</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -18853,60 +18702,20 @@ class="
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">KeyError</span>                                  Traceback (most recent call last)
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ansi-cyan-fg">get_loc</span><span class="ansi-blue-fg">(self, key, method, tolerance)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3628</span>             <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 3629</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_engine<span class="ansi-blue-fg">.</span>get_loc<span class="ansi-blue-fg">(</span>casted_key<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3630</span>             <span class="ansi-green-fg">except</span> KeyError <span class="ansi-green-fg">as</span> err<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.8/site-packages/pandas/_libs/index.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.index.IndexEngine.get_loc</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.8/site-packages/pandas/_libs/index.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.index.IndexEngine.get_loc</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-green-fg">pandas/_libs/hashtable_class_helper.pxi</span> in <span class="ansi-cyan-fg">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-green-fg">pandas/_libs/hashtable_class_helper.pxi</span> in <span class="ansi-cyan-fg">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-red-fg">KeyError</span>: &#39;Season&#39;
-
-The above exception was the direct cause of the following exception:
-
-<span class="ansi-red-fg">KeyError</span>                                  Traceback (most recent call last)
-<span class="ansi-green-fg">/var/folders/sj/3jvs639d20s87vbcgt_m3yc40000gn/T/ipykernel_26038/1372417350.py</span> in <span class="ansi-cyan-fg">&lt;cell line: 1&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>proj_mvp_new<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;2007-08&#39;</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/var/folders/sj/3jvs639d20s87vbcgt_m3yc40000gn/T/ipykernel_26038/1428041091.py</span> in <span class="ansi-cyan-fg">proj_mvp_new</span><span class="ansi-blue-fg">(year)</span>
-<span class="ansi-green-intense-fg ansi-bold">      6</span>             tmp<span class="ansi-blue-fg">.</span>at<span class="ansi-blue-fg">[</span>index<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;MVP&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">(</span>row<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;S_WS&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">*</span> <span class="ansi-cyan-fg">0.4</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>row<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;S_VORP&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">*</span> <span class="ansi-cyan-fg">0.3</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>row<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;S_PPG&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">*</span> <span class="ansi-cyan-fg">0.2</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>row<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;S_PER&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">*</span> <span class="ansi-cyan-fg">0.1</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>row<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Wins&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      7</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">----&gt; 8</span><span class="ansi-red-fg">             </span>tmp2 <span class="ansi-blue-fg">=</span> tmp<span class="ansi-blue-fg">.</span>loc<span class="ansi-blue-fg">[</span>tmp<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Player&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">==</span> mvpframe<span class="ansi-blue-fg">[</span>mvpframe<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Season&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">==</span> row<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Season&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Player&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>max<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">      9</span>             tmp<span class="ansi-blue-fg">.</span>at<span class="ansi-blue-fg">[</span>index<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;MVP&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">(</span>tmp2<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;S_WS&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">*</span> <span class="ansi-cyan-fg">0.4</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>tmp2<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;S_VORP&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">*</span> <span class="ansi-cyan-fg">0.3</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>tmp2<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;S_PPG&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">*</span> <span class="ansi-cyan-fg">0.2</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>tmp2<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;S_PER&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">*</span> <span class="ansi-cyan-fg">0.1</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>tmp2<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Wins&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     10</span>     <span class="ansi-green-fg">return</span> list<span class="ansi-blue-fg">(</span>zip<span class="ansi-blue-fg">(</span>tmp<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Player&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> tmp<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;MVP&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.8/site-packages/pandas/core/series.py</span> in <span class="ansi-cyan-fg">__getitem__</span><span class="ansi-blue-fg">(self, key)</span>
-<span class="ansi-green-intense-fg ansi-bold">    956</span> 
-<span class="ansi-green-intense-fg ansi-bold">    957</span>         <span class="ansi-green-fg">elif</span> key_is_scalar<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 958</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_get_value<span class="ansi-blue-fg">(</span>key<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    959</span> 
-<span class="ansi-green-intense-fg ansi-bold">    960</span>         <span class="ansi-green-fg">if</span> is_hashable<span class="ansi-blue-fg">(</span>key<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.8/site-packages/pandas/core/series.py</span> in <span class="ansi-cyan-fg">_get_value</span><span class="ansi-blue-fg">(self, label, takeable)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1067</span> 
-<span class="ansi-green-intense-fg ansi-bold">   1068</span>         <span class="ansi-red-fg"># Similar to Index.get_value, but we do not fall back to positional</span>
-<span class="ansi-green-fg">-&gt; 1069</span><span class="ansi-red-fg">         </span>loc <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>index<span class="ansi-blue-fg">.</span>get_loc<span class="ansi-blue-fg">(</span>label<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1070</span>         <span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>index<span class="ansi-blue-fg">.</span>_get_values_for_loc<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> loc<span class="ansi-blue-fg">,</span> label<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1071</span> 
-
-<span class="ansi-green-fg">~/opt/anaconda3/lib/python3.8/site-packages/pandas/core/indexes/base.py</span> in <span class="ansi-cyan-fg">get_loc</span><span class="ansi-blue-fg">(self, key, method, tolerance)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3629</span>                 <span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_engine<span class="ansi-blue-fg">.</span>get_loc<span class="ansi-blue-fg">(</span>casted_key<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3630</span>             <span class="ansi-green-fg">except</span> KeyError <span class="ansi-green-fg">as</span> err<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 3631</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> KeyError<span class="ansi-blue-fg">(</span>key<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">from</span> err
-<span class="ansi-green-intense-fg ansi-bold">   3632</span>             <span class="ansi-green-fg">except</span> TypeError<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   3633</span>                 <span class="ansi-red-fg"># If we have a listlike key, _check_indexing_error will raise</span>
-
-<span class="ansi-red-fg">KeyError</span>: &#39;Season&#39;</pre>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Luka Dončić-DAL
+Trae Young-ATL
+Giannis Antetokounmpo-MIL
+Nikola Jokić-DEN
+Joel Embiid-PHI
+[3.4854099006449455, 3.58279695207396, 4.990504951922433, 6.0161254083051015, 4.579482920981727]
+[55.485409900644946, 46.58279695207396, 55.99050495192243, 54.0161254083051, 55.579482920981725]
+There is a 56.89877226024229% chance that a player with an MVP metric of 55.485409900644946 would win the NBA MVP award
+There is a 47.778254766246874% chance that a player with an MVP metric of 46.58279695207396 would win the NBA MVP award
+There is a 57.416230255767786% chance that a player with an MVP metric of 55.99050495192243 would win the NBA MVP award
+There is a 55.39352486900388% chance that a player with an MVP metric of 54.0161254083051 would win the NBA MVP award
+There is a 56.995147856109604% chance that a player with an MVP metric of 55.579482920981725 would win the NBA MVP award
+</pre>
 </div>
 </div>
 
@@ -18914,6 +18723,19 @@ The above exception was the direct cause of the following exception:
 
 </div>
 
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Based on this output, Nikola Jokic, the actual winner of the 2021-22 NBA MVP award, actually had the 4th lowest chance of the players with the 5 highest MVP metric, which isn't a good sign for the model. However, this then implies that there is some sort of qualitative factor to the award, as it is voted on by members of the national media. Additionally, prior to the wins being added, Jokic by and far had the highest MVP metric, suggesting that in 2021-22, the voters did choose the &quot;most valuable&quot; player, rather than the &quot;most successful&quot; player for this award.</p>
+<p>Prior to the start of the 2021-22 NBA season, the Denver Nuggets were not as highly rated as teams like the Milwaukee Bucks or Philadelphia 76ers. This indicates that Jokic's outstanding play, despite his team's relative lack of success, was deemed worthy of the award.</p>
+
+</div>
+</div>
+</div>
 </div>
 </body>
 
